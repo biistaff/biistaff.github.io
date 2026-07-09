@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AIチャットボット デモ（行政書士事務所向け）</title>
+<style>
+  :root { --brand: #15803d; }  /* ← 営業先のコーポレートカラーに変える */
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:"Hiragino Sans","Yu Gothic",sans-serif; background:#f1f5f9; display:flex; justify-content:center; padding:24px 12px; }
+  .chat { width:100%; max-width:420px; background:#fff; border-radius:16px; box-shadow:0 8px 30px rgba(0,0,0,.12); display:flex; flex-direction:column; height:80vh; min-height:480px; }
+  .head { background:var(--brand); color:#fff; padding:14px 18px; border-radius:16px 16px 0 0; }
+  .head h1 { font-size:15px; }
+  .head p { font-size:11px; opacity:.85; margin-top:2px; }
+  .log { flex:1; overflow-y:auto; padding:16px; display:flex; flex-direction:column; gap:10px; }
+  .msg { max-width:80%; padding:10px 14px; border-radius:14px; font-size:13px; line-height:1.7; white-space:pre-wrap; }
+  .bot { background:#eef2ff; align-self:flex-start; border-bottom-left-radius:4px; }
+  .user { background:var(--brand); color:#fff; align-self:flex-end; border-bottom-right-radius:4px; }
+  .quick { padding:0 16px 8px; display:flex; flex-wrap:wrap; gap:6px; }
+  .quick button { font-size:11px; padding:6px 10px; border:1px solid var(--brand); color:var(--brand); background:#fff; border-radius:99px; cursor:pointer; }
+  .quick button:hover { background:var(--brand); color:#fff; }
+  .input { display:flex; gap:8px; padding:12px 16px; border-top:1px solid #e2e8f0; }
+  .input input { flex:1; padding:10px 12px; border:1px solid #cbd5e1; border-radius:10px; font-size:13px; }
+  .input button { padding:10px 16px; background:var(--brand); color:#fff; border:none; border-radius:10px; font-size:13px; cursor:pointer; }
+  .note { text-align:center; font-size:10px; color:#94a3b8; padding:6px; }
+</style>
+</head>
+<body>
+<div class="chat">
+  <div class="head">
+    <h1 id="botName">〇〇行政書士事務所 AIサポート</h1>
+    <p>24時間自動応答デモ｜ビイスタッフAIパートナーズ 制作</p>
+  </div>
+  <div class="log" id="log"></div>
+  <div class="quick" id="quick"></div>
+  <div class="input">
+    <input id="q" placeholder="質問を入力してください" onkeydown="if(event.key==='Enter')send()">
+    <button onclick="send()">送信</button>
+  </div>
+  <div class="note">※これは架空の事務所を使ったサンプルデモです。御事務所の資料をもとに、同様のボットを2週間で構築します（定型応答型・サーバ費用不要）</div>
+</div>
+<script>
+/* ==============================================
+   営業先ごとにここだけ書き換える（事務所名・FAQ）
+   FAQは営業先の公開サイトから作成する
+   ============================================== */
+const CONFIG = {
+    "botName":  "さくら行政書士事務所（架空の事務所） AIサポート",
+    "greeting":  "サンプル事務所「さくら行政書士事務所」のAIサポートです。\n許認可・相続・ビザなどのご相談をどうぞ。下のボタンからも選べます。",
+    "fallback":  "申し訳ありません、その質問はサンプルデモの想定外でした。\n実際の納品では、御事務所のよくあるご相談・資料に合わせて回答を作り込みます。",
+    "faq":  [
+                {
+                    "q":  "建設業許可は取れる？",
+                    "keys":  ["建設業","許可","取得","更新","業種追加"],
+                    "a":  "建設業許可（知事許可・大臣許可）の新規取得から、5年ごとの更新、業種追加まで対応します。要件を満たすかどうかの事前診断は無料です。"
+                },
+                {
+                    "q":  "費用はいくらから？",
+                    "keys":  ["費用","料金","いくら","報酬","見積","相場"],
+                    "a":  "手続きの種類により異なります。例：建設業許可（新規）11万円〜、車庫証明1万円〜、会社設立サポート8万円〜。ご依頼前に無料でお見積もりいたします。"
+                },
+                {
+                    "q":  "相続・遺言の相談は？",
+                    "keys":  ["相続","遺言","遺産","名義","分割"],
+                    "a":  "遺言書の作成サポート、相続人・財産の調査、遺産分割協議書の作成、預貯金・不動産の名義変更手続きまで一括で対応します。"
+                },
+                {
+                    "q":  "外国人の在留資格（ビザ）は？",
+                    "keys":  ["在留","ビザ","外国人","就労","帰化","特定技能"],
+                    "a":  "就労ビザの申請・更新、特定技能・技能実習、帰化申請まで対応します。外国人材の採用をお考えの企業様のご相談も承ります。"
+                },
+                {
+                    "q":  "車庫証明・自動車登録は？",
+                    "keys":  ["車庫証明","自動車","登録","名義変更","車"],
+                    "a":  "車庫証明の取得、自動車の新規・移転・変更登録を代行します。法人の社用車の一括手続きも承ります。"
+                },
+                {
+                    "q":  "会社設立や営業許可は？",
+                    "keys":  ["会社設立","法人","設立","許認可","開業","飲食","古物"],
+                    "a":  "株式会社・合同会社の設立から、飲食・古物・産業廃棄物などの各種営業許可まで、開業に必要な手続きをワンストップでサポートします。"
+                },
+                {
+                    "q":  "補助金・助成金は？",
+                    "keys":  ["補助金","助成金","申請","支援"],
+                    "a":  "事業に活用できる補助金・助成金のご提案から申請書類の作成までサポートします（対応可否は制度・内容により異なります）。"
+                },
+                {
+                    "q":  "初回相談は無料？",
+                    "keys":  ["初回","無料","相談","面談"],
+                    "a":  "初回のご相談（30分）は無料です。お気軽にお問い合わせください。ご来所が難しい場合はオンラインでも承ります。"
+                }
+            ]
+};
+/* ============================================== */
+
+const log = document.getElementById("log");
+document.getElementById("botName").textContent = CONFIG.botName;
+
+function add(text, who){
+  const d = document.createElement("div");
+  d.className = "msg " + who;
+  d.textContent = text;
+  log.appendChild(d);
+  log.scrollTop = log.scrollHeight;
+}
+
+function answer(text){
+  const t = text.toLowerCase();
+  let best = null, bestScore = 0;
+  for(const f of CONFIG.faq){
+    const score = f.keys.filter(k => t.includes(k.toLowerCase())).length;
+    if(score > bestScore){ bestScore = score; best = f; }
+  }
+  return best ? best.a : CONFIG.fallback;
+}
+
+function send(fromBtn){
+  const input = document.getElementById("q");
+  const text = fromBtn || input.value.trim();
+  if(!text) return;
+  add(text, "user");
+  input.value = "";
+  setTimeout(() => add(answer(text), "bot"), 500);
+}
+
+/* 初期表示 */
+add(CONFIG.greeting, "bot");
+const quick = document.getElementById("quick");
+CONFIG.faq.forEach(f => {
+  const b = document.createElement("button");
+  b.textContent = f.q;
+  b.onclick = () => send(f.q);
+  quick.appendChild(b);
+});
+</script>
+</body>
+</html>
