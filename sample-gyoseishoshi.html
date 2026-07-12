@@ -19,6 +19,11 @@
   .quick { padding:0 16px 8px; display:flex; flex-wrap:wrap; gap:6px; }
   .quick button { font-size:11px; padding:6px 10px; border:1px solid var(--brand); color:var(--brand); background:#fff; border-radius:99px; cursor:pointer; }
   .quick button:hover { background:var(--brand); color:#fff; }
+  .quick button.diag { background:var(--brand); color:#fff; font-weight:bold; }
+  .quick button.diag:hover { opacity:.85; }
+  .msg .cta { display:inline-block; margin-top:8px; padding:8px 14px; background:var(--brand); color:#fff; border-radius:8px; font-size:12px; text-decoration:none; font-weight:bold; }
+  .bar { height:8px; background:#e2e8f0; border-radius:99px; overflow:hidden; margin:6px 0 2px; }
+  .bar span { display:block; height:100%; background:var(--brand); border-radius:99px; }
   .input { display:flex; gap:8px; padding:12px 16px; border-top:1px solid #e2e8f0; }
   .input input { flex:1; padding:10px 12px; border:1px solid #cbd5e1; border-radius:10px; font-size:13px; }
   .input button { padding:10px 16px; background:var(--brand); color:#fff; border:none; border-radius:10px; font-size:13px; cursor:pointer; }
@@ -46,7 +51,7 @@
    ============================================== */
 const CONFIG = {
     "botName":  "さくら行政書士事務所（架空の事務所） AIサポート",
-    "greeting":  "サンプル事務所「さくら行政書士事務所」のAIサポートです。\n許認可・相続・ビザなどのご相談をどうぞ。下のボタンからも選べます。",
+    "greeting":  "サンプル事務所「さくら行政書士事務所」のAIサポートです。\n許認可・相続・ビザなどのご相談をどうぞ。下のボタンからも選べます。\n\n📊 まずは【1分AI診断】もおすすめです。5つの質問で、御事務所の「AIで戻ってくる時間」を試算します。",
     "fallback":  "申し訳ありません、その質問はサンプルデモの想定外でした。\n実際の納品では、御事務所のよくあるご相談・資料に合わせて回答を作り込みます。",
     "faq":  [
                 {
@@ -123,15 +128,89 @@ function send(fromBtn){
   setTimeout(() => add(answer(text), "bot"), 500);
 }
 
+/* ==============================================
+   1分AI診断（5問・その場でスコア＝ボット機能の実演）
+   ============================================== */
+const DIAG = [
+  { q:"Q1. 電話・メールの問い合わせ対応に、1日どのくらい時間を使っていますか？",
+    opts:[["ほぼ使わない",0],["30分くらい",1],["1時間以上",2]] },
+  { q:"Q2. 「費用は？」「必要書類は？」など、同じ質問に何度も答えていませんか？",
+    opts:[["ほとんどない",0],["ときどきある",1],["毎日のようにある",2]] },
+  { q:"Q3. 営業時間外や外出中の問い合わせを、取りこぼしたことはありますか？",
+    opts:[["ない",0],["たまにある",1],["よくある気がする",2]] },
+  { q:"Q4. 見積書・案内文など定型文書は、どう作っていますか？",
+    opts:[["ほぼ自動化済み",0],["過去のをコピペ",1],["毎回手作りに近い",2]] },
+  { q:"Q5. ホームページ経由の新規相談は、月に何件ありますか？",
+    opts:[["6件以上",0],["2〜5件",1],["0〜1件",2]] },
+];
+let diagStep = -1, diagScore = 0;
+
+function startDiag(){
+  diagStep = 0; diagScore = 0;
+  add("📊 1分AI診断をはじめます。5問、当てはまるものをタップしてください。", "bot");
+  askDiag();
+}
+function askDiag(){
+  add(DIAG[diagStep].q, "bot");
+  quick.innerHTML = "";
+  DIAG[diagStep].opts.forEach(([label, pt]) => {
+    const b = document.createElement("button");
+    b.textContent = label;
+    b.onclick = () => {
+      add(label, "user");
+      diagScore += pt;
+      diagStep++;
+      if(diagStep < DIAG.length){ setTimeout(askDiag, 400); }
+      else { setTimeout(showDiagResult, 500); }
+    };
+    quick.appendChild(b);
+  });
+}
+function showDiagResult(){
+  const pct = Math.round(diagScore / 10 * 100);
+  let title, body, hours;
+  if(diagScore >= 7){
+    title = "🔴 AI化の伸びしろ【大】";
+    hours = "月20〜30時間";
+    body = "問い合わせ対応と定型作業にかなりの時間が流れています。FAQボット＋定型文書の自動化だけで、" + hours + "が本業（申請実務・面談）に戻る規模です。";
+  } else if(diagScore >= 4){
+    title = "🟡 部分導入が効くタイプ";
+    hours = "月10〜15時間";
+    body = "全部をAI化する必要はありません。効いている部分は残し、「同じ質問への自動応答」など1点だけ自動化するのが費用対効果最大です。目安で" + hours + "の回収。";
+  } else {
+    title = "🟢 すでに効率的な事務所です";
+    hours = "月数時間";
+    body = "現状かなり効率化されています。それでも「営業時間外の一次対応」をボットに任せると、取りこぼしゼロにできます。";
+  }
+  const d = document.createElement("div");
+  d.className = "msg bot";
+  d.innerHTML = "<b>" + title + "</b><div class='bar'><span style='width:" + pct + "%'></span></div>AI活用の伸びしろ: " + pct + "%<br><br>" + body +
+    "<br><br>▶ この診断つきボットも、御事務所仕様で構築できます（2週間・サーバ費用不要）。<br>" +
+    "<a class='cta' href='mailto:biistaff.works@gmail.com?subject=AI診断を試しました（無料相談希望）&body=事務所名：%0D%0Aお名前：%0D%0A診断結果：" + pct + "%25%0D%0A相談したいこと：'>📧 無料で詳しく相談する</a>";
+  log.appendChild(d);
+  log.scrollTop = log.scrollHeight;
+  diagStep = -1;
+  renderQuick();
+}
+
 /* 初期表示 */
 add(CONFIG.greeting, "bot");
 const quick = document.getElementById("quick");
-CONFIG.faq.forEach(f => {
-  const b = document.createElement("button");
-  b.textContent = f.q;
-  b.onclick = () => send(f.q);
-  quick.appendChild(b);
-});
+function renderQuick(){
+  quick.innerHTML = "";
+  const dg = document.createElement("button");
+  dg.textContent = "📊 1分AI診断";
+  dg.className = "diag";
+  dg.onclick = startDiag;
+  quick.appendChild(dg);
+  CONFIG.faq.forEach(f => {
+    const b = document.createElement("button");
+    b.textContent = f.q;
+    b.onclick = () => send(f.q);
+    quick.appendChild(b);
+  });
+}
+renderQuick();
 </script>
 </body>
 </html>
