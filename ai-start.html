@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>生成AI、何から触る？仕事別の最初の一歩 | 有限会社ビイスタッフ</title>
+<meta property="og:title" content="生成AI、何から触る？仕事別の最初の一歩">
+<meta property="og:description" content="2024年度調査では4人に3人が未使用。ただし前年から1年で約3倍に増えた。書く仕事・会議が多い仕事、タイプ別に無料で試せる最初の一歩をまとめました。">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<meta name="description" content="生成AIの最初の一歩を仕事のタイプ別に。料金・無料枠は公式サイトで実測した数字だけを掲載。">
+<style>
+  :root{
+    --brand:#15803d; --brand-d:#166534; --brand-soft:#eef6f0;
+    --accent:#ea580c; --accent-d:#c2410c; --accent-soft:#fff2e8;
+    --ink:#1f2937; --sub:#556070; --paper:#faf9f6; --card:#ffffff;
+    --line:#e7e3da; --mark:#ffe58a; --good:#15803d; --bad:#dc2626;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:"Hiragino Sans","Yu Gothic",system-ui,sans-serif;color:var(--ink);background:var(--paper);line-height:1.8;font-size:16px;-webkit-text-size-adjust:100%;}
+  img{max-width:100%;height:auto;display:block;}
+  .wrap{max-width:760px;margin:0 auto;padding:0 20px;}
+
+  header{background:linear-gradient(160deg,#166534 0%,#15803d 60%,#1d9e4b 100%);color:#fff;padding:30px 0 34px;}
+  .pr{font-size:12px;color:rgba(255,255,255,.82);margin-bottom:14px;letter-spacing:.02em;}
+  h1{font-size:27px;line-height:1.42;margin-bottom:14px;font-weight:800;letter-spacing:.01em;}
+  .lead{font-size:15.5px;color:rgba(255,255,255,.94);line-height:1.85;}
+  .byline{display:flex;align-items:center;gap:9px;font-size:13px;color:rgba(255,255,255,.9);margin-top:18px;}
+  .byline .ava{width:30px;height:30px;border-radius:50%;background:#fff;color:var(--brand);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px;flex:none;}
+
+  section{padding:32px 0 6px;}
+  h2{font-size:21px;line-height:1.5;font-weight:800;margin-bottom:18px;padding-left:14px;border-left:6px solid var(--brand);}
+  h2 .ic{margin-right:6px;}
+  h3{font-size:17px;font-weight:800;margin:28px 0 12px;padding-bottom:7px;border-bottom:2px solid var(--brand-soft);}
+  p{font-size:16px;margin-bottom:20px;}
+  p:last-child{margin-bottom:0;}
+  strong{font-weight:800;}
+  .mark{background:linear-gradient(transparent 60%,var(--mark) 60%);font-weight:800;padding:0 1px;}
+
+  .takeaway{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin:24px 0;box-shadow:0 1px 3px rgba(20,40,20,.04);}
+  .takeaway b{display:flex;align-items:center;gap:8px;font-size:14px;color:var(--brand);margin-bottom:12px;font-weight:800;}
+  .takeaway ul{list-style:none;}
+  .takeaway li{position:relative;padding-left:26px;font-size:15px;margin-bottom:10px;line-height:1.7;}
+  .takeaway li:last-child{margin-bottom:0;}
+  .takeaway li::before{content:"✓";position:absolute;left:0;top:0;color:var(--brand);font-weight:900;}
+
+  .concl{background:var(--brand-soft);border-left:5px solid var(--brand);border-radius:0 12px 12px 0;padding:18px 20px;margin:24px 0;}
+  .concl p{font-size:15.5px;margin-bottom:12px;}
+  .concl p:last-child{margin-bottom:0;}
+
+  .toc{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 22px;margin:26px 0;}
+  .toc b{display:block;font-size:13.5px;color:var(--brand);margin-bottom:12px;font-weight:800;}
+  .toc ol{margin:0;padding-left:20px;}
+  .toc li{font-size:14.5px;margin-bottom:9px;line-height:1.55;}
+  .toc a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--line);}
+
+  .fig{margin:8px 0 26px;}
+  .fig-cap{font-size:12.5px;color:var(--sub);margin:8px 2px 0;}
+
+  /* growth stat */
+  .stat{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 18px 16px;}
+  .stat .row{display:flex;align-items:center;gap:12px;margin-bottom:12px;}
+  .stat .row:last-child{margin-bottom:0;}
+  .stat .yr{flex:none;width:82px;font-size:12.5px;font-weight:700;color:var(--sub);line-height:1.3;}
+  .stat .track{flex:1;background:#eef1ee;border-radius:8px;height:32px;overflow:hidden;}
+  .stat .fill{height:100%;border-radius:8px;display:flex;align-items:center;justify-content:flex-end;padding-right:10px;color:#fff;font-weight:800;font-size:13px;}
+  .stat .fill.small{background:transparent;color:var(--sub);justify-content:flex-start;padding-left:8px;font-size:11px;}
+  .stat .f1{width:9.1%;min-width:3px;background:#9db8a6;}
+  .stat .f2{width:26.7%;min-width:3px;background:linear-gradient(90deg,var(--brand),#1d9e4b);}
+  .stat .axis{font-size:10.5px;color:#98a2ac;text-align:right;margin-top:2px;}
+  .stat .cap{display:flex;align-items:center;gap:8px;margin-top:14px;font-size:13px;font-weight:800;color:var(--accent-d);background:var(--accent-soft);border-radius:8px;padding:8px 12px;}
+
+  /* route cards */
+  .routes{display:flex;flex-direction:column;gap:12px;margin:6px 0 22px;}
+  .route{display:flex;gap:14px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;align-items:flex-start;}
+  .route .ei{flex:none;width:44px;height:44px;border-radius:12px;background:var(--brand-soft);display:flex;align-items:center;justify-content:center;font-size:22px;}
+  .route .bd{flex:1;}
+  .route b{display:block;font-size:15.5px;font-weight:800;margin-bottom:4px;}
+  .route p{font-size:14px;margin:0;color:#374151;}
+  .route a{color:var(--accent-d);font-weight:800;text-decoration:none;white-space:nowrap;}
+  .route.soon{opacity:.72;} .route.soon .ei{background:#eef1f4;}
+
+  .scroll{overflow-x:auto;margin:6px 0 8px;border-radius:12px;border:1px solid var(--line);}
+  table{width:100%;border-collapse:collapse;background:var(--card);font-size:14px;min-width:320px;}
+  th,td{border-bottom:1px solid var(--line);border-right:1px solid var(--line);padding:11px 12px;text-align:left;vertical-align:top;line-height:1.7;}
+  tr td:last-child,tr th:last-child{border-right:none;}
+  tbody tr:last-child td,table tr:last-child td{border-bottom:none;}
+  th{background:var(--brand-soft);font-size:12.5px;white-space:nowrap;font-weight:800;}
+  .good{color:var(--good);font-weight:800;} .bad{color:var(--bad);font-weight:800;}
+
+  .toolcard{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:6px 18px 18px;margin-top:6px;box-shadow:0 1px 3px rgba(20,40,20,.04);}
+  .fit{margin:6px 0 16px;font-size:14.5px;}
+  .fit p{margin-bottom:10px;line-height:1.8;}
+  .fit p:last-child{margin-bottom:0;}
+
+  .note{font-size:13px;color:var(--sub);margin:12px 0 22px;line-height:1.7;}
+  .warn{background:var(--accent-soft);border:1px solid #f4cdb2;border-left:5px solid var(--accent);border-radius:0 10px 10px 0;padding:15px 16px;font-size:14.5px;margin:12px 0 20px;line-height:1.8;}
+  .warn b{color:var(--accent-d);}
+
+  .cta{background:linear-gradient(150deg,#1a5c32,#15803d);border-radius:16px;padding:22px;margin:16px 0 8px;text-align:center;color:#fff;box-shadow:0 6px 18px rgba(21,128,61,.22);}
+  .cta .k{font-size:15.5px;font-weight:800;margin-bottom:14px;line-height:1.6;}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:52px;background:var(--accent);color:#fff;font-weight:800;padding:12px 30px;border-radius:999px;text-decoration:none;font-size:16px;box-shadow:0 4px 0 var(--accent-d);transition:transform .05s;}
+  .btn:active{transform:translateY(2px);box-shadow:0 2px 0 var(--accent-d);}
+  .btn:focus-visible{outline:3px solid #fff;outline-offset:3px;}
+  .deep{font-size:13.5px;margin:12px 0 0;}
+  .deep a{color:var(--brand);font-weight:700;}
+
+  .faq dt{font-weight:800;margin-top:20px;font-size:15.5px;padding-left:26px;position:relative;}
+  .faq dt::before{content:"Q";position:absolute;left:0;top:0;color:var(--brand);font-weight:900;}
+  .faq dd{margin:8px 0 0 26px;font-size:14.5px;color:#374151;line-height:1.8;}
+
+  footer{border-top:1px solid var(--line);margin-top:36px;padding:24px 0 46px;font-size:12px;color:var(--sub);}
+  footer p{margin-bottom:8px;line-height:1.7;}
+  footer a{color:var(--brand);}
+  .hero-photo{width:100%;background:#f4fbf6;border-bottom:1px solid var(--line);}
+  .hero-photo img{width:100%;height:clamp(190px,40vw,300px);object-fit:cover;object-position:center;display:block;}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <p class="pr">※本ページにはプロモーション（アフィリエイト広告）が含まれます</p>
+    <h1>もしかして、まだ触ってないの自分だけ？</h1>
+    <p class="lead">大丈夫、2024年度の調査では4人に3人が未使用でした。ただし1年で約3倍のペースで増えている——追いつくなら早いほどラクです。</p>
+    <div class="byline"><span class="ava">裸</span><span>文：裸足＠AIぶん回し課長（AIを実際にぶん回している中の人）</span></div>
+  </div>
+</header>
+
+<div class="hero-photo"><img src="assets/img/hero-aistart.png" alt="ノートパソコンとスマートフォンのある明るいデスク"></div>
+
+<div class="wrap">
+
+  <div class="takeaway">
+    <b>📌 この記事でわかること</b>
+    <ul>
+      <li>いま生成AIを使っている人は実際どのくらいか（公的調査の数字）</li>
+      <li>「何から触るか」で迷わない選び方＝仕事のタイプで1つだけ決める</li>
+      <li>書く仕事なら文賢、会議が多いならNotta——無料で試せる最初の一歩</li>
+    </ul>
+  </div>
+
+  <div class="concl">
+    <p><b>先に結論だけ。</b>生成AIは「全部おぼえてから始める」と、たいてい始まりません。</p>
+    <p>先に決めるのは<span class="mark">仕事のタイプひとつだけ</span>。書く仕事が多いなら文章チェック、会議が多いなら文字起こし。どちらも無料で試せるので、合うか合わないかは触れば30分でわかります。</p>
+  </div>
+
+  <nav class="toc">
+    <b>この記事の内容</b>
+    <ol>
+      <li><a href="#now">いま、どのくらいの人が使っているのか</a></li>
+      <li><a href="#route">何から触るか——仕事のタイプで選ぶ</a></li>
+      <li><a href="#bunken">① 文賢——書いた文章をチェックする</a></li>
+      <li><a href="#notta">② Notta——会議を自動で文字起こし</a></li>
+      <li><a href="#faq">よくある質問</a></li>
+    </ol>
+  </nav>
+
+  <section id="now">
+    <h2><span class="ic">📊</span>いま、どのくらいの人が使っているのか</h2>
+    <p>個人で生成AIを使ったことがある人は<strong>26.7%</strong>。<span class="mark">約4人に3人は使っていませんでした</span>。ただしこれは<strong>2024年度に行われた調査</strong>の数字です（総務省「令和7年版 情報通信白書」／2025年7月公表）。<strong>その前年は9.1%</strong>だったので、1年で約3倍に増えたことになります。</p>
+
+    <div class="fig">
+      <div class="stat">
+        <div class="row"><span class="yr">前年<br>（9.1%）</span><div class="track"><div class="fill f1"></div></div></div>
+        <div class="row"><span class="yr">2024年度<br>（26.7%）</span><div class="track"><div class="fill f2"></div></div></div>
+        <div class="axis">目盛りは0〜100%（生成AIの個人利用経験者の割合）</div>
+        <div class="cap">📈 1年で約3倍。ただし2024年度でも使っているのは約4人に1人＝増えている側に早めに回るほどラク。</div>
+      </div>
+      <p class="fig-cap">図：個人の生成AI利用経験率（総務省「令和7年版 情報通信白書」）。</p>
+    </div>
+
+    <p>同じペースなら、いま実際に使っている人は当時よりさらに増えているはずです。それでも、まだ「使っていない側」がかなり残っている段階だと言えます。</p>
+    <p class="note">※本稿執筆時点（2026年7月）で公表されている最新の公的調査は上記です。より新しい数字が出た場合は、そちらをご確認ください。</p>
+
+    <h3>いきなり学び直さなくていい</h3>
+    <p>順序としては、まず<strong>自分の仕事に合う道具をひとつ、無料枠で触ってみること</strong>。合うと分かってから深く学べば、遠回りがありません。逆に、道具を決めずに講座から入ると、何のために学んでいるのか分からなくなりがちです。</p>
+  </section>
+
+  <section id="route">
+    <h2><span class="ic">🧭</span>何から触るか——仕事のタイプで選ぶ</h2>
+    <p>「AIで何ができるか」から入ると迷います。<strong>自分の1日で一番時間を食っている作業</strong>から選んでください。</p>
+
+    <div class="routes">
+      <div class="route">
+        <div class="ei">✍️</div>
+        <div class="bd"><b>① 書く仕事が多い</b><p>メール・報告書・ブログ・提案書。文章を書く時間が1日1時間を超えるなら、文章チェックAI「文賢」から。 <a href="#bunken">詳細へ ↓</a></p></div>
+      </div>
+      <div class="route">
+        <div class="ei">🎙️</div>
+        <div class="bd"><b>② 会議・打合せが多い</b><p>議事録づくりに追われているなら、自動文字起こしの「Notta」から。会議中にメモを取る作業がなくなります。 <a href="#notta">詳細へ ↓</a></p></div>
+      </div>
+      <div class="route soon">
+        <div class="ei">📚</div>
+        <div class="bd"><b>③ ゼロから体系的に学びたい</b><p>道具より先に基礎から、という進め方もあります。ただし本記事では扱っていません（このルートは準備中です）。</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="bunken">
+    <h2><span class="ic">✍️</span>① 文賢——書いた文章をAIと独自ルールでチェック</h2>
+    <div class="toolcard">
+      <h3>できること・料金</h3>
+      <div class="scroll">
+        <table>
+          <tr><th>できること</th><td>誤字脱字・日本語の誤りのチェック／AIによるリライト・類語提案／<strong>マスキング機能</strong>（固有名詞や機密を隠したままAIチェックにかけられる＝社外秘文書でも使いやすい）</td></tr>
+          <tr><th>料金（税込）</th><td>パーソナル 月1,650円（1年更新）／月1,980円（1ヶ月更新）。<strong>14日間の無料トライアルあり</strong>（公式明記＝すべての機能が使え、期間中のキャンセルなら料金は一切発生しない）</td></tr>
+          <tr><th>環境</th><td>ブラウザで動作。スマートフォン・タブレット対応</td></tr>
+        </table>
+      </div>
+
+      <h3>向く人・向かない人</h3>
+      <div class="fit">
+        <p><span class="good">○ 向く人：</span>取引先に出す文章が多い人。誤字が信用問題になる仕事（士業・広報・営業）。</p>
+        <p><span class="bad">✕ 向かない人：</span>文章をほぼ書かない人。ゼロから文章を「生成」させたい人（文賢は書いた文章を磨く道具で、無から書かせる道具ではありません）。</p>
+      </div>
+
+      <div class="warn">⚠️<b>正直な注意：</b>トライアル期間が終わるとそのまま本契約に移行します。試すだけのつもりなら、期間中のキャンセルを忘れずに（期間中なら料金は一切かかりません＝公式明記）。</div>
+
+      <div class="cta">
+        <p class="k">まず14日間、自分の実際のメール1通で試すのが早い。</p>
+        <a class="btn" href="https://px.a8.net/svt/ejp?a8mat=4B82L4+61B8KY+3Q2O+HVFKY" rel="sponsored nofollow">文賢を14日間無料で試す →</a><img border="0" width="1" height="1" src="https://www16.a8.net/0.gif?a8mat=4B82L4+61B8KY+3Q2O+HVFKY" alt="">
+      </div>
+      <p class="deep">→ 深掘り：<a href="bunken-kousei.html">「無料AIで校正できるのに文賢要る？」を本音で比べた記事はこちら</a></p>
+    </div>
+  </section>
+
+  <section id="notta">
+    <h2><span class="ic">🎙️</span>② Notta——会議を自動で文字起こし・要約</h2>
+    <div class="toolcard">
+      <h3>できること・料金</h3>
+      <div class="scroll">
+        <table>
+          <tr><th>できること</th><td>会議・通話のリアルタイム文字起こし（話者識別つき）／AI要約／Zoom・Teams・Google Meet連携</td></tr>
+          <tr><th>料金（税込）</th><td><strong>無料プランあり＝月120分まで・カード登録不要</strong>（ただし1回の文字起こしは3分までで、長い会議を通しで録るには有料）。本格利用はプレミアム：年払いで月あたり1,185円（12ヶ月一括14,220円）・月1,800分</td></tr>
+          <tr><th>環境</th><td>Web版＋スマホアプリ。データはSSL暗号化・SOC2認証取得（公式記載）</td></tr>
+        </table>
+      </div>
+
+      <h3>向く人・向かない人</h3>
+      <div class="fit">
+        <p><span class="good">○ 向く人：</span>週2回以上の会議・打合せ・商談がある人。議事録を後から書き起こしている人。</p>
+        <p><span class="bad">✕ 向かない人：</span>会議がほぼない人。雑音の多い現場録音が中心の人（公式も「収音が困難な場合は精度に影響」と明記しています）。</p>
+      </div>
+
+      <div class="warn">⚠️<b>正直な注意：</b>3日間の無料トライアルは、期間内に解約しないと年間プランへ切り替わります。試すだけなら期間内の解約手続きを忘れずに。まずは<span class="mark">カード登録不要の無料プラン（1回3分・月120分）で機能と精度を試す</span>のが安全です。</div>
+
+      <div class="cta">
+        <p class="k">クレジットカード登録不要。次の会議1本で試せる。</p>
+        <a class="btn" href="https://px.a8.net/svt/ejp?a8mat=4B82L4+6AU69E+5988+5YJRM" rel="sponsored nofollow">Nottaを無料ではじめる →</a><img border="0" width="1" height="1" src="https://www18.a8.net/0.gif?a8mat=4B82L4+6AU69E+5988+5YJRM" alt="">
+      </div>
+      <p class="deep">→ 深掘り：<a href="notta-giji.html">「そもそもNotta要る？ ボイスメモ＋AIで十分では？」を本音で比べた記事はこちら</a></p>
+    </div>
+  </section>
+
+  <section id="faq">
+    <h2><span class="ic">❓</span>よくある質問</h2>
+    <dl class="faq">
+      <dt>無料で試せますか？</dt>
+      <dd>A. 両方試せます。文賢は14日間の無料トライアル、Nottaはカード登録不要の無料プラン（月120分／1回の文字起こしは3分まで）があります。</dd>
+      <dt>パソコンが苦手でも使えますか？スマホだけでも？</dt>
+      <dd>A. どちらもブラウザとスマホに対応しています。Nottaはスマホアプリで録音→自動文字起こしまで完結します。</dd>
+      <dt>会社の情報を入れて大丈夫？</dt>
+      <dd>A. 不安な部分は隠して使えます。文賢にはマスキング機能（機密を伏せてチェック）があり、NottaはSSL暗号化とSOC2認証を公式に明記しています。それでも社内規程が最優先——機密そのものは入れないのが原則です。</dd>
+    </dl>
+  </section>
+
+</div>
+
+<footer>
+  <div class="wrap">
+    <p>文：裸足＠AIぶん回し課長（AIを実際にぶん回している中の人の記録）</p>
+    <p>出典：総務省「令和7年版 情報通信白書」（生成AIの個人利用経験 26.7%・前年9.1%）。料金・無料枠は2026年7月18日に各公式サイトで確認した税込表記です。最新の条件は各公式サイトでご確認ください。</p>
+    <p>運営：有限会社ビイスタッフ　※本ページにはアフィリエイト広告を含みます。</p>
+  </div>
+</footer>
+</body>
+</html>

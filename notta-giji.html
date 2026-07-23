@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>会議の議事録、無料でどこまでいける？ ボイスメモ＋AI vs Notta を本音で仕分けた | 有限会社ビイスタッフ</title>
+<meta property="og:title" content="会議の議事録、無料でどこまでいける？ ボイスメモ＋AI vs Notta を課長が本音で仕分けた">
+<meta property="og:description" content="Nottaって要る？ iPhoneのボイスメモ＋AIで議事録、正直どっちが楽か。無料枠の公表仕様と公式料金で、要る人・要らない人を本音で仕分けます。">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<meta name="description" content="会議の議事録を無料でどこまでできるか。ボイスメモ＋AIの自作ルートとNotta無料枠を、公表仕様と公式料金の数字で本音で比較。">
+<style>
+  :root{
+    --brand:#15803d; --brand-d:#166534; --brand-soft:#eef6f0;
+    --accent:#ea580c; --accent-d:#c2410c; --accent-soft:#fff2e8;
+    --ink:#1f2937; --sub:#556070; --paper:#faf9f6; --card:#ffffff;
+    --line:#e7e3da; --mark:#ffe58a; --good:#15803d; --bad:#dc2626;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:"Hiragino Sans","Yu Gothic",system-ui,sans-serif;color:var(--ink);background:var(--paper);line-height:1.8;font-size:16px;-webkit-text-size-adjust:100%;}
+  img{max-width:100%;height:auto;display:block;}
+  .wrap{max-width:760px;margin:0 auto;padding:0 20px;}
+
+  /* ---- Hero ---- */
+  header{background:linear-gradient(160deg,#166534 0%,#15803d 60%,#1d9e4b 100%);color:#fff;padding:30px 0 34px;}
+  .pr{font-size:12px;color:rgba(255,255,255,.82);margin-bottom:14px;letter-spacing:.02em;}
+  h1{font-size:27px;line-height:1.42;margin-bottom:14px;font-weight:800;letter-spacing:.01em;}
+  .lead{font-size:15.5px;color:rgba(255,255,255,.94);line-height:1.85;}
+  .byline{display:flex;align-items:center;gap:9px;font-size:13px;color:rgba(255,255,255,.9);margin-top:18px;}
+  .byline .ava{width:30px;height:30px;border-radius:50%;background:#fff;color:var(--brand);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px;flex:none;}
+  /* hero mini-diagram */
+  .hero-flow{display:flex;align-items:center;gap:8px;margin-top:22px;flex-wrap:wrap;}
+  .hero-flow .pill{background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.3);border-radius:999px;padding:7px 14px;font-size:13px;font-weight:700;white-space:nowrap;}
+  .hero-flow .ar{opacity:.8;font-weight:800;}
+
+  /* ---- shared ---- */
+  section{padding:32px 0 6px;}
+  h2{font-size:21px;line-height:1.5;font-weight:800;margin-bottom:18px;padding-left:14px;border-left:6px solid var(--brand);}
+  h2 .ic{margin-right:6px;}
+  h3{font-size:17px;font-weight:800;margin:28px 0 12px;padding-bottom:7px;border-bottom:2px solid var(--brand-soft);}
+  p{font-size:16px;margin-bottom:20px;}
+  p:last-child{margin-bottom:0;}
+  strong{font-weight:800;}
+  .mark{background:linear-gradient(transparent 60%,var(--mark) 60%);font-weight:800;padding:0 1px;}
+
+  /* takeaways */
+  .takeaway{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin:24px 0;box-shadow:0 1px 3px rgba(20,40,20,.04);}
+  .takeaway b{display:flex;align-items:center;gap:8px;font-size:14px;color:var(--brand);margin-bottom:12px;font-weight:800;}
+  .takeaway ul{list-style:none;}
+  .takeaway li{position:relative;padding-left:26px;font-size:15px;margin-bottom:10px;line-height:1.7;}
+  .takeaway li:last-child{margin-bottom:0;}
+  .takeaway li::before{content:"✓";position:absolute;left:0;top:0;color:var(--brand);font-weight:900;}
+
+  /* conclusion box */
+  .concl{background:var(--brand-soft);border-left:5px solid var(--brand);border-radius:0 12px 12px 0;padding:18px 20px;margin:24px 0;}
+  .concl p{font-size:15.5px;margin-bottom:12px;}
+  .concl p:last-child{margin-bottom:0;}
+
+  /* TOC */
+  .toc{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 22px;margin:26px 0;}
+  .toc b{display:block;font-size:13.5px;color:var(--brand);margin-bottom:12px;font-weight:800;}
+  .toc ol{margin:0;padding-left:20px;}
+  .toc li{font-size:14.5px;margin-bottom:9px;line-height:1.55;}
+  .toc a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--line);}
+
+  /* process comparison diagram */
+  .fig{margin:8px 0 26px;}
+  .fig-cap{font-size:12.5px;color:var(--sub);margin:8px 2px 0;}
+  .lanes{display:flex;flex-direction:column;gap:14px;}
+  .lane{border:1px solid var(--line);border-radius:14px;padding:14px 14px 16px;background:var(--card);}
+  .lane.self{border-color:#f0d3c4;background:#fffaf6;}
+  .lane.notta{border-color:#c9e6d3;background:#f4fbf6;}
+  .lane-h{display:flex;align-items:center;gap:8px;font-weight:800;font-size:14px;margin-bottom:12px;}
+  .tag{font-size:11px;font-weight:800;padding:3px 9px;border-radius:999px;color:#fff;}
+  .tag.b{background:var(--accent);}
+  .tag.g{background:var(--brand);}
+  .chain{display:flex;align-items:stretch;gap:6px;flex-wrap:wrap;}
+  .step{flex:1 1 auto;min-width:0;background:#fff;border:1px solid var(--line);border-radius:10px;padding:9px 8px;text-align:center;font-size:12.5px;font-weight:700;line-height:1.4;display:flex;flex-direction:column;justify-content:center;}
+  .step small{display:block;font-weight:600;color:var(--sub);font-size:10.5px;margin-top:3px;}
+  .step.friction{border-color:#e6b9a2;background:#fff4ee;color:var(--accent-d);}
+  .step.auto{border-color:#bfe3cc;background:#eef9f1;color:var(--brand-d);flex:2 1 auto;}
+  .arw{align-self:center;color:#b6aea0;font-weight:900;font-size:15px;flex:none;}
+  .arw.g{color:var(--brand);}
+
+  /* speaker before/after */
+  .ba{display:flex;flex-direction:column;gap:12px;}
+  .ba-card{border-radius:12px;padding:14px 15px;font-size:13.5px;line-height:1.75;}
+  .ba-card b{display:block;font-size:12px;margin-bottom:8px;font-weight:800;}
+  .ba-before{background:#f3f2ef;border:1px solid var(--line);color:#6a6a6a;}
+  .ba-before b{color:#8a8a8a;}
+  .ba-after{background:var(--card);border:1px solid #c9e6d3;}
+  .ba-after b{color:var(--brand);}
+  .spk{display:block;margin-bottom:4px;}
+  .spk i{font-style:normal;font-weight:800;border-radius:6px;padding:1px 7px;margin-right:6px;color:#fff;font-size:12px;}
+  .spk.a i{background:#2563eb;} .spk.b i{background:#7c3aed;} .spk.c i{background:#0891b2;}
+
+  /* gauge */
+  .gauge{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 16px 14px;margin:6px 0 26px;}
+  .gauge-h{font-weight:800;font-size:14px;margin-bottom:12px;}
+  .bar{height:34px;border-radius:8px;background:#eef1ee;display:flex;overflow:hidden;border:1px solid var(--line);}
+  .bar span{display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:#fff;}
+  .bar .u1{background:var(--brand);width:50%;} .bar .u2{background:#3fae63;width:50%;border-left:2px solid #fff;}
+  .gauge small{display:block;color:var(--sub);font-size:12.5px;margin-top:9px;}
+
+  /* screenshot slot */
+  .shot{border:2px dashed #c9c3b6;border-radius:14px;background:#fbfaf7;padding:26px 18px;text-align:center;margin:6px 0 26px;}
+  .shot .ico{font-size:30px;margin-bottom:8px;}
+  .shot b{display:block;font-size:14px;color:var(--sub);font-weight:800;margin-bottom:4px;}
+  .shot span{font-size:12.5px;color:var(--sub);}
+
+  /* points */
+  ul.pt{margin:0 0 22px 4px;padding-left:20px;}
+  ul.pt li{font-size:16px;margin-bottom:12px;line-height:1.8;}
+
+  /* table */
+  .scroll{overflow-x:auto;margin:6px 0 8px;border-radius:12px;border:1px solid var(--line);}
+  table{width:100%;border-collapse:collapse;background:var(--card);font-size:14px;min-width:360px;}
+  th,td{border-bottom:1px solid var(--line);border-right:1px solid var(--line);padding:11px 12px;text-align:left;vertical-align:top;line-height:1.6;}
+  tr td:last-child,tr th:last-child{border-right:none;}
+  tbody tr:last-child td{border-bottom:none;}
+  thead th{background:var(--brand);color:#fff;font-size:12.5px;white-space:nowrap;font-weight:800;}
+  tbody th{background:var(--brand-soft);font-size:12.5px;font-weight:800;}
+  .col-note{font-size:12px;color:var(--sub);margin:8px 2px 26px;}
+  .good{color:var(--good);font-weight:800;} .bad{color:var(--bad);font-weight:800;}
+
+  /* balloon */
+  .balloon{position:relative;background:#fff;border:1.5px solid var(--brand);border-radius:14px;padding:15px 16px 15px 52px;margin:24px 0;font-size:14.5px;line-height:1.75;}
+  .balloon::before{content:"裸";position:absolute;left:14px;top:15px;width:28px;height:28px;border-radius:50%;background:var(--brand);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;}
+  .balloon b{color:var(--brand);}
+
+  .note{font-size:13px;color:var(--sub);margin:12px 0 22px;line-height:1.7;}
+  .warn{background:var(--accent-soft);border:1px solid #f4cdb2;border-left:5px solid var(--accent);border-radius:0 10px 10px 0;padding:15px 16px;font-size:14.5px;margin:12px 0 24px;line-height:1.8;}
+  .warn b{color:var(--accent-d);}
+
+  /* verdict cards */
+  .verdict{display:flex;flex-direction:column;gap:12px;margin:8px 0 24px;}
+  .vc{border-radius:14px;padding:16px 18px;border:1px solid var(--line);background:var(--card);}
+  .vc .h{display:flex;align-items:center;gap:9px;font-weight:800;font-size:15px;margin-bottom:8px;}
+  .vc .h .chip{font-size:11px;font-weight:800;color:#fff;border-radius:999px;padding:3px 10px;}
+  .vc.free .chip{background:#64748b;} .vc.notta .chip{background:var(--brand);}
+  .vc p{font-size:14.5px;margin:0;}
+
+  /* CTA */
+  .cta{background:linear-gradient(150deg,#1a5c32,#15803d);border-radius:16px;padding:24px 22px;margin:24px 0 8px;text-align:center;color:#fff;box-shadow:0 6px 18px rgba(21,128,61,.22);}
+  .cta .k{font-size:16px;font-weight:800;margin-bottom:6px;line-height:1.6;}
+  .cta .s{font-size:13.5px;color:rgba(255,255,255,.9);margin-bottom:16px;}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:52px;background:var(--accent);color:#fff;font-weight:800;padding:12px 30px;border-radius:999px;text-decoration:none;font-size:16px;box-shadow:0 4px 0 var(--accent-d);transition:transform .05s;}
+  .btn:active{transform:translateY(2px);box-shadow:0 2px 0 var(--accent-d);}
+  .btn:focus-visible{outline:3px solid #fff;outline-offset:3px;}
+  .cta .fine{font-size:11.5px;color:rgba(255,255,255,.82);margin-top:12px;}
+  .cta-soft{background:var(--accent-soft);border:1px solid #f4cdb2;border-radius:14px;padding:16px 18px;margin:20px 0;display:flex;align-items:center;gap:14px;flex-wrap:wrap;}
+  .cta-soft p{margin:0;font-size:14px;font-weight:700;flex:1 1 200px;color:var(--accent-d);}
+  .btn-o{display:inline-flex;align-items:center;gap:7px;min-height:46px;background:var(--accent);color:#fff;font-weight:800;padding:10px 22px;border-radius:999px;text-decoration:none;font-size:14.5px;white-space:nowrap;}
+  .btn-o:focus-visible{outline:3px solid var(--accent);outline-offset:2px;}
+
+  /* faq */
+  .faq dt{font-weight:800;margin-top:20px;font-size:15.5px;padding-left:26px;position:relative;}
+  .faq dt::before{content:"Q";position:absolute;left:0;top:0;color:var(--brand);font-weight:900;}
+  .faq dd{margin:8px 0 0 26px;font-size:14.5px;color:#374151;line-height:1.8;}
+  .back{font-size:14px;margin-top:24px;}
+  .back a{color:var(--brand);font-weight:700;}
+
+  footer{border-top:1px solid var(--line);margin-top:36px;padding:24px 0 46px;font-size:12px;color:var(--sub);}
+  footer p{margin-bottom:8px;line-height:1.7;}
+  footer a{color:var(--brand);}
+  .hero-photo{width:100%;background:#f4fbf6;border-bottom:1px solid var(--line);}
+  .hero-photo img{width:100%;height:clamp(190px,40vw,300px);object-fit:cover;object-position:center;display:block;}
+</style>
+</head>
+<body>
+
+<!-- ===== Hero ===== -->
+<header>
+  <div class="wrap">
+    <p class="pr">※本ページにはプロモーション（アフィリエイト広告）が含まれます</p>
+    <h1>会議の議事録、無料でどこまでいける？<br>ボイスメモ＋AI vs Notta を本音で仕分けた</h1>
+    <p class="lead">「専用ツールなんて要る？ ボイスメモで録ってAIに要約させれば、タダで同じでは？」——もっともな疑問。両方の仕組みを公表仕様と設計から突き合わせて、要る人・要らない人を分けました。</p>
+    <div class="hero-flow">
+      <span class="pill">🎙️ 録音</span><span class="ar">→</span>
+      <span class="pill">📝 文字起こし</span><span class="ar">→</span>
+      <span class="pill">🧠 要約</span><span class="ar">→</span>
+      <span class="pill">✅ 議事録</span>
+    </div>
+    <div class="byline"><span class="ava">裸</span><span>文：裸足＠AIぶん回し課長（AIを実際にぶん回している中の人）</span></div>
+  </div>
+</header>
+
+<div class="hero-photo"><img src="assets/img/hero-notta.png" alt="ノートパソコンとマイクのある会議のデスク"></div>
+
+<div class="wrap">
+
+  <!-- takeaways -->
+  <div class="takeaway">
+    <b>📌 この記事でわかること</b>
+    <ul>
+      <li>無料で議事録、どこまでいけるか（結論は先に出します）</li>
+      <li>自作ルート（ボイスメモ＋AI）に空いている"2つの穴"</li>
+      <li>Notta無料枠の公表仕様と、隠さない"本当の壁"</li>
+      <li>あなたはどっち？ タイプ別の答え</li>
+    </ul>
+  </div>
+
+  <div class="concl">
+    <p><b>先に結論。</b>要約の質だけなら、<span class="mark">ボイスメモ＋AIでも十分いけます</span>。ここは正直に。</p>
+    <p>ただし"会議"には、それだけでは埋まらない穴が2つありました。<strong>「音声をClaudeに直接渡せない」</strong>ことと、<strong>「誰が何を言ったかが消える」</strong>こと。一人メモなら無料ルートで足ります。複数人の会議なら、そこが効いてきます。</p>
+  </div>
+
+  <nav class="toc">
+    <b>この記事の内容</b>
+    <ol>
+      <li><a href="#hyo">まず結論——この表だけ見れば足りる</a></li>
+      <li><a href="#ana1">穴その1——「Claudeに音声を渡す」は、実はできない</a></li>
+      <li><a href="#ana2">穴その2——"誰が何を言ったか"が消える</a></li>
+      <li><a href="#tsukatta">無料枠でできること（要約はこう出る）</a></li>
+      <li><a href="#kabe">Notta無料の"本当の壁"（隠さず）</a></li>
+      <li><a href="#shiwake">で、どっちを使えばいい？（本音の仕分け）</a></li>
+      <li><a href="#faq">よくある質問</a></li>
+    </ol>
+  </nav>
+
+  <section>
+    <p>会議は好きじゃない。議事録はもっと好きじゃない。だからAIに任せたい——んだけど、ここで一つ引っかかった。</p>
+    <p><strong>「iPhoneのボイスメモで録って、あとはAIに要約させれば、わざわざNottaを使わなくてもタダで同じことができるんじゃないの？」</strong></p>
+    <p>俺も最初そう思った。で、両方の仕組みを公表仕様と設計から突き合わせた。結論から言う。<strong>要約の質だけなら、正直ボイスメモ＋AIでも十分いける。でも"会議"には、それだけじゃ埋まらない穴が2つあった。</strong></p>
+  </section>
+
+  <!-- ===== 比較表 ===== -->
+  <section id="hyo">
+    <h2><span class="ic">⚖️</span>まず結論——この表だけ見れば足りる</h2>
+    <div class="scroll">
+    <table>
+      <thead><tr><th></th><th>ボイスメモ＋AI<br>（自作ルート）</th><th>Notta<br>（無料枠）</th></tr></thead>
+      <tbody>
+        <tr><th>料金</th><td>¥0</td><td>¥0（カード登録不要）</td></tr>
+        <tr><th>録音→文字起こし→要約</th><td class="bad">3手間</td><td class="good">ほぼ1本</td></tr>
+        <tr><th>誰が何を言ったか<br>（話者識別）</th><td class="bad">弱い</td><td class="good">○ 自動で分ける</td></tr>
+        <tr><th>1時間の会議</th><td>分割が要ることも</td><td class="bad">無料は1回3分まで＝通しで録るなら有料</td></tr>
+        <tr><th>要約の質</th><td class="good">高い</td><td class="good">高い</td></tr>
+        <tr><th>テキスト書き出し</th><td>自由</td><td class="bad">無料は不可</td></tr>
+        <tr><th>向く人</th><td>一人メモ・短い1on1</td><td>複数人の会議・記録を残したい</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p class="col-note">→ 分かれ目は「要約の質」ではなく、<strong>手間の回数</strong>と<strong>話者識別</strong>。以下、その2点を掘ります。</p>
+  </section>
+
+  <!-- ===== 穴1 ===== -->
+  <section id="ana1">
+    <h2><span class="ic">🕳️</span>穴その1——「Claudeに音声を渡す」は、実はできない</h2>
+    <p>ボイスメモで録った音声を、そのままClaudeに投げて要約——は現状できません。Claudeは音声ファイルを直接受け取らないからです（テキスト・画像・PDF中心）。</p>
+    <p>だから自作ルートは、下のように<span class="mark">3手間</span>になります。Nottaはこれがボタン一つで一本に繋がっている。差はそこです。</p>
+
+    <div class="fig">
+      <div class="lanes">
+        <div class="lane self">
+          <div class="lane-h"><span class="tag b">自作ルート</span>録音から要約まで3手間</div>
+          <div class="chain">
+            <div class="step">🎙️<br>録音</div>
+            <div class="arw">→</div>
+            <div class="step friction">📝 文字起こし<small>別ツールが必要</small></div>
+            <div class="arw">→</div>
+            <div class="step friction">📋 AIに貼る<small>コピペ</small></div>
+            <div class="arw">→</div>
+            <div class="step">🧠<br>要約</div>
+          </div>
+        </div>
+        <div class="lane notta">
+          <div class="lane-h"><span class="tag g">Notta</span>録音ボタンを押すだけ</div>
+          <div class="chain">
+            <div class="step">🎙️<br>録音ボタン</div>
+            <div class="arw g">→</div>
+            <div class="step auto">⚡ 文字起こし＆要約まで自動<small>コピペ往復なし</small></div>
+            <div class="arw g">→</div>
+            <div class="step">✅<br>議事録</div>
+          </div>
+        </div>
+      </div>
+      <p class="fig-cap">図：同じ「録音→要約」でも、往復するコピペの回数が違う。</p>
+    </div>
+
+    <p class="note">※ChatGPTアプリは音声を扱えるので、自作ルートでもここは手数が減ります。</p>
+
+    <div class="balloon">
+      <b>裸足：</b>要約が上手いかどうかの勝負だと思ってたんですが、違いました。実際に効いてくるのは<span class="mark">録音から要約まで何回コピペするか</span>のほうでした。
+    </div>
+  </section>
+
+  <!-- ===== 穴2 ===== -->
+  <section id="ana2">
+    <h2><span class="ic">🗣️</span>穴その2——"誰が何を言ったか"が消える</h2>
+    <p>これが本丸です。ボイスメモを文字起こしすると、<strong>発言者がゴチャ混ぜの一枚岩テキスト</strong>になりがちでした。「その宿題、誰が持ち帰ったんだっけ？」——議事録でいちばん大事な<span class="mark">"言った言わない"</span>が、自作ルートだと残しにくい。</p>
+
+    <div class="fig">
+      <div class="ba">
+        <div class="ba-card ba-before">
+          <b>✕ 自作ルート：一枚岩になりがち</b>
+          「じゃあ来週までにやっておきます、あ、それなら私が資料を、いや先にAさんの確認が要るのでは、では金曜に…」
+        </div>
+        <div class="ba-card ba-after">
+          <b>○ Notta：自動で話者を分ける</b>
+          <span class="spk a"><i>Aさん</i>じゃあ来週までにやっておきます。</span>
+          <span class="spk b"><i>Bさん</i>それなら私が資料を用意します。</span>
+          <span class="spk c"><i>Cさん</i>先にAさんの確認が要るのでは？</span>
+        </div>
+      </div>
+      <p class="fig-cap">図：複数人の会議は、この一点だけでも効いてくる。</p>
+    </div>
+    <p>Nottaは「Aさん：〜／Bさん：〜」と自動で話者を分けます。複数人の会議なら、この一点だけでも使う価値があります。</p>
+  </section>
+
+  <!-- ===== 無料枠でできること ===== -->
+  <section id="tsukatta">
+    <h2><span class="ic">🧪</span>無料枠でできること（要約はこう出る）</h2>
+    <p>Nottaの無料枠は、録音（またはファイル取り込み）から文字起こし・AI要約・話者識別までを一本で処理します。要約は、だいたい次のような形で出てきます。</p>
+
+    <div class="fig">
+      <div class="ba-card ba-after" style="border-radius:14px;">
+        <b>▼ AI要約の出力イメージ（形式のイメージ図です・実際の画面ではありません）</b>
+        <div style="font-size:13.5px;line-height:1.9;">
+          <div style="margin-bottom:6px;"><span style="display:inline-block;min-width:74px;font-weight:800;color:var(--brand-d);">会議名</span>秋の新メニュー会議</div>
+          <div style="margin-bottom:6px;"><span style="display:inline-block;min-width:74px;font-weight:800;color:var(--brand-d);">決定事項</span>かぼちゃラテ／さつまいもプリンを採用</div>
+          <div style="margin-bottom:6px;"><span style="display:inline-block;min-width:74px;font-weight:800;color:var(--brand-d);">TODO</span>試作＝金曜まで／SNS告知＝月曜投稿</div>
+          <div><span style="display:inline-block;min-width:74px;font-weight:800;color:var(--brand-d);">話者</span><span class="spk a" style="display:inline;"><i>Aさん</i></span><span class="spk b" style="display:inline;"><i>Bさん</i></span><span class="spk c" style="display:inline;"><i>Cさん</i></span>を自動で色分け</div>
+        </div>
+      </div>
+      <p class="fig-cap">図：会議名・決定事項・TODO・話者が自動で整理される（出力形式のイメージ）。</p>
+    </div>
+
+    <h3>無料枠で"効く"のはここ</h3>
+    <ul class="pt">
+      <li>効くのは<strong>AI要約</strong>。「何の会議だったか」「どんな結論が出たか」「どんな宿題（TODO）が残ったか」を自動でまとめる設計。議事メモを手で起こす手間と比べると、ここが一番大きい。</li>
+      <li><strong>話者識別</strong>で「誰が何を言ったか」が残る（前章の穴2がここで埋まる）。</li>
+      <li>操作は録音ボタンを押すか、音声ファイルを取り込むだけ。</li>
+    </ul>
+    <p class="note">※文字起こし精度98.86%はNottaの公表値で、静かな整った会議での条件下の数字です。うるさい場所や被り発話では落ちます——そこは環境次第、と正直に。本稿は無料枠の仕様と公表値・設計にもとづく整理で、特定の実会議の使用感レビューではありません。</p>
+
+    <div class="cta-soft">
+      <p>💡 まず無料（1回3分）で、要約と話者識別の精度を試すのが早いです</p>
+      <a class="btn-o" href="https://px.a8.net/svt/ejp?a8mat=4B82L4+6AU69E+5988+5YJRM" rel="sponsored nofollow">無料で試す</a><img border="0" width="1" height="1" src="https://www18.a8.net/0.gif?a8mat=4B82L4+6AU69E+5988+5YJRM" alt="">
+    </div>
+  </section>
+
+  <!-- ===== 無料の壁 ===== -->
+  <section id="kabe">
+    <h2><span class="ic">🧱</span>Notta無料の"本当の壁"（隠さず）</h2>
+    <h3>無料枠でできないこと</h3>
+
+    <div class="gauge">
+      <div class="gauge-h">無料枠の本当の壁＝1回の録音・文字起こしが「3分まで」</div>
+      <div class="bar">
+        <span style="width:8%;background:var(--brand);display:flex;align-items:center;justify-content:center;color:#fff;font-size:11px;font-weight:800;">3分</span>
+        <span style="width:92%;background:#efd7c8;color:#9a5a38;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;border-left:2px solid #fff;">残り57分は無料では録れない（60分会議の例）</span>
+      </div>
+      <small>月合計120分より先に、この「1回3分」で止まる。長い会議を通しで録るには有料プランが前提です。</small>
+    </div>
+
+    <ul class="pt">
+      <li>⚠️<strong>無料は1回の録音・文字起こしが3分まで</strong>。<span class="mark">30〜60分の会議をアップロードしても、無料では最初の3分しか処理されません</span>＝機能・精度の確認用と割り切るのが正直なところ。</li>
+      <li><strong>月の合計も120分まで</strong>（毎月リセット）。</li>
+      <li><strong>文字起こしの書き出し（エクスポート）は有料</strong>。無料はアプリ内で見る前提。</li>
+    </ul>
+    <div class="warn">
+      ⚠️<b>「3日間無料トライアル」はフリープランとは別物です。</b>トライアルは終了後にプレミアム年間プランで<strong>自動課金</strong>されます（72時間以内の解約なら請求なし＝公式）。<strong>"ずっと無料で使いたいだけ"なら、トライアルには進まず、フリープランのままでOK。</strong>ここを混同させる紹介が多いので、はっきり書いておきます。
+    </div>
+  </section>
+
+  <!-- ===== 仕分け + CTA ===== -->
+  <section id="shiwake">
+    <h2><span class="ic">🎯</span>で、どっちを使えばいい？（本音の仕分け）</h2>
+
+    <div class="verdict">
+      <div class="vc free">
+        <div class="h"><span class="chip">無料の自作でOK</span>一人メモ・短い1on1</div>
+        <p>誰が言ったか要らない・自分用のメモなら、<strong>ボイスメモ＋AIで十分</strong>。¥0。Nottaは要りません。</p>
+      </div>
+      <div class="vc notta">
+        <div class="h"><span class="chip">Nottaが効く</span>複数人の会議・記録を残したい</div>
+        <p>"話者識別 × コピペ往復なし"が欲しいなら、Nottaが向きます。まず無料（1回3分）で要約と話者識別の精度を確かめ、実際の会議を通しで残す段になったら有料プラン（年払いで月あたり1,185円〜）へ。順番に試せば遠回りがありません。</p>
+      </div>
+    </div>
+
+    <div class="cta">
+      <p class="k">複数人の会議を、あとで揉めない記録に。</p>
+      <p class="s">カード登録不要。まず3分の録音で、話者識別と要約の精度を試せます。</p>
+      <a class="btn" href="https://px.a8.net/svt/ejp?a8mat=4B82L4+6AU69E+5988+5YJRM" rel="sponsored nofollow">Nottaを無料ではじめる →</a><img border="0" width="1" height="1" src="https://www18.a8.net/0.gif?a8mat=4B82L4+6AU69E+5988+5YJRM" alt="">
+      <p class="fine">※フリープランは月120分・1回3分・カード不要。長い会議を通しで録るには有料。「3日間トライアル」は自動課金のため、無料だけで使いたい方はフリープランのままで。</p>
+    </div>
+  </section>
+
+  <!-- ===== FAQ ===== -->
+  <section id="faq">
+    <h2><span class="ic">❓</span>よくある質問</h2>
+    <dl class="faq">
+      <dt>スマホだけで使える？</dt>
+      <dd>A. iPhoneアプリの録音ボタンで会議を録れます。録音→文字起こし→要約までスマホで完結します。</dd>
+      <dt>音声データ、情報漏洩が不安です</dt>
+      <dd>A. 公式はSOC2認証と通信の暗号化を掲げています（最新の取得状況・データの保管場所は公式のセキュリティ説明でご確認を）。いずれにせよ機密性が非常に高い会議は社内規程を最優先に——機密そのものは入れないのが原則です。</dd>
+      <dt>完全無料でずっと使える？</dt>
+      <dd>A. フリープランは月120分・カード不要でずっと無料ですが、<strong>1回の文字起こしは3分まで</strong>で、長い会議を通しで録るには有料プランが要ります（無料は機能・精度の確認用）。「3日間トライアル」は別物で終了後に自動課金なので、混同にご注意を。</dd>
+      <dt>結局、要約はClaudeやChatGPTの方が上手いのでは？</dt>
+      <dd>A. 要約"単体"ならその通りです。Nottaの価値は要約の質ではなく、「録音→話者識別→要約が一本で繋がっている」手間の差にあります。</dd>
+    </dl>
+    <p class="back">← <a href="ai-start.html">生成AI、何から触る？（仕事タイプ別の入口）に戻る</a></p>
+  </section>
+
+</div>
+
+<footer>
+  <div class="wrap">
+    <p>文：裸足＠AIぶん回し課長（AIを実際にぶん回している中の人の記録）</p>
+    <p>出典：料金・無料枠は2026年7月19日にNotta公式サイトで確認した税込表記です。文字起こし精度98.86%はNotta公表値。最新の条件は<a href="https://www.notta.ai/pricing">公式</a>でご確認ください。</p>
+    <p>運営：有限会社ビイスタッフ　※本ページにはアフィリエイト広告を含みます。</p>
+  </div>
+</footer>
+</body>
+</html>

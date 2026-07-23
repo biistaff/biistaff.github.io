@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>文章校正、無料でどこまで？ ChatGPT/Claude と文賢の違いを整理した | 有限会社ビイスタッフ</title>
+<meta property="og:title" content="文章校正、無料でどこまで？ ChatGPT/Claude と文賢の違いを整理した">
+<meta property="og:description" content="無料AIで校正できるのに、文賢（月1,650円）って要る？ 毎日AIを使う課長が、無料AIと文賢の要る人・要らない人を本音で仕分けます。">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<meta name="description" content="文章校正を無料AI（ChatGPT/Claude）でどこまでできるか。有料の文賢との違い（機密・日本語校閲・チーム表記）を実体験と公式情報で本音比較。">
+<style>
+  :root{
+    --brand:#15803d; --brand-d:#166534; --brand-soft:#eef6f0;
+    --accent:#ea580c; --accent-d:#c2410c; --accent-soft:#fff2e8;
+    --ink:#1f2937; --sub:#556070; --paper:#faf9f6; --card:#ffffff;
+    --line:#e7e3da; --mark:#ffe58a; --good:#15803d; --bad:#dc2626;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:"Hiragino Sans","Yu Gothic",system-ui,sans-serif;color:var(--ink);background:var(--paper);line-height:1.8;font-size:16px;-webkit-text-size-adjust:100%;}
+  img{max-width:100%;height:auto;display:block;}
+  .wrap{max-width:760px;margin:0 auto;padding:0 20px;}
+
+  header{background:linear-gradient(160deg,#166534 0%,#15803d 60%,#1d9e4b 100%);color:#fff;padding:30px 0 34px;}
+  .pr{font-size:12px;color:rgba(255,255,255,.82);margin-bottom:14px;letter-spacing:.02em;}
+  h1{font-size:27px;line-height:1.42;margin-bottom:14px;font-weight:800;letter-spacing:.01em;}
+  .lead{font-size:15.5px;color:rgba(255,255,255,.94);line-height:1.85;}
+  .byline{display:flex;align-items:center;gap:9px;font-size:13px;color:rgba(255,255,255,.9);margin-top:18px;}
+  .byline .ava{width:30px;height:30px;border-radius:50%;background:#fff;color:var(--brand);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px;flex:none;}
+  .hero-flow{display:flex;align-items:center;gap:8px;margin-top:22px;flex-wrap:wrap;}
+  .hero-flow .pill{background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.3);border-radius:999px;padding:7px 14px;font-size:13px;font-weight:700;white-space:nowrap;}
+  .hero-flow .ar{opacity:.8;font-weight:800;}
+
+  section{padding:32px 0 6px;}
+  h2{font-size:21px;line-height:1.5;font-weight:800;margin-bottom:18px;padding-left:14px;border-left:6px solid var(--brand);}
+  h2 .ic{margin-right:6px;}
+  h3{font-size:17px;font-weight:800;margin:28px 0 12px;padding-bottom:7px;border-bottom:2px solid var(--brand-soft);}
+  p{font-size:16px;margin-bottom:20px;}
+  p:last-child{margin-bottom:0;}
+  strong{font-weight:800;}
+  .mark{background:linear-gradient(transparent 60%,var(--mark) 60%);font-weight:800;padding:0 1px;}
+
+  .takeaway{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin:24px 0;box-shadow:0 1px 3px rgba(20,40,20,.04);}
+  .takeaway b{display:flex;align-items:center;gap:8px;font-size:14px;color:var(--brand);margin-bottom:12px;font-weight:800;}
+  .takeaway ul{list-style:none;}
+  .takeaway li{position:relative;padding-left:26px;font-size:15px;margin-bottom:10px;line-height:1.7;}
+  .takeaway li:last-child{margin-bottom:0;}
+  .takeaway li::before{content:"✓";position:absolute;left:0;top:0;color:var(--brand);font-weight:900;}
+
+  .concl{background:var(--brand-soft);border-left:5px solid var(--brand);border-radius:0 12px 12px 0;padding:18px 20px;margin:24px 0;}
+  .concl p{font-size:15.5px;margin-bottom:12px;}
+  .concl p:last-child{margin-bottom:0;}
+
+  .toc{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 22px;margin:26px 0;}
+  .toc b{display:block;font-size:13.5px;color:var(--brand);margin-bottom:12px;font-weight:800;}
+  .toc ol{margin:0;padding-left:20px;}
+  .toc li{font-size:14.5px;margin-bottom:9px;line-height:1.55;}
+  .toc a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--line);}
+
+  .fig{margin:8px 0 26px;}
+  .fig-cap{font-size:12.5px;color:var(--sub);margin:8px 2px 0;}
+
+  /* two-card compare (security / verdict) */
+  .duo{display:flex;flex-direction:column;gap:12px;}
+  .dc{border-radius:14px;padding:16px 18px;border:1px solid var(--line);background:var(--card);}
+  .dc .h{display:flex;align-items:center;gap:9px;font-weight:800;font-size:15px;margin-bottom:10px;}
+  .dc .chip{font-size:11px;font-weight:800;color:#fff;border-radius:999px;padding:3px 10px;}
+  .dc.risk{border-color:#f0d3c4;background:#fffaf6;} .dc.risk .chip{background:var(--accent);}
+  .dc.safe{border-color:#c9e6d3;background:#f4fbf6;} .dc.safe .chip{background:var(--brand);}
+  .dc p{font-size:14px;margin:0;}
+  .dc .doc{display:inline-block;background:#fff;border:1px solid var(--line);border-radius:8px;padding:6px 12px;font-size:12.5px;font-weight:700;margin-bottom:10px;}
+  .dc .flow{font-size:13px;font-weight:700;color:var(--accent-d);}
+  .dc.safe .flow{color:var(--brand-d);}
+
+  /* before/after (表記ゆれ) */
+  .ba{display:flex;flex-direction:column;gap:12px;}
+  .ba-card{border-radius:12px;padding:14px 15px;font-size:13.5px;line-height:1.9;}
+  .ba-card b{display:block;font-size:12px;margin-bottom:8px;font-weight:800;}
+  .ba-before{background:#f3f2ef;border:1px solid var(--line);color:#6a6a6a;}
+  .ba-before b{color:#8a8a8a;}
+  .ba-after{background:var(--card);border:1px solid #c9e6d3;}
+  .ba-after b{color:var(--brand);}
+  .tok{display:inline-block;border-radius:6px;padding:1px 8px;margin:2px 3px;font-weight:700;font-size:12.5px;}
+  .tok.x{background:#efe7e2;color:#9a7a68;text-decoration:line-through;}
+  .tok.o{background:var(--brand-soft);color:var(--brand-d);}
+
+  .shot{border:2px dashed #c9c3b6;border-radius:14px;background:#fbfaf7;padding:26px 18px;text-align:center;margin:6px 0 26px;}
+  .shot .ico{font-size:30px;margin-bottom:8px;}
+  .shot b{display:block;font-size:14px;color:var(--sub);font-weight:800;margin-bottom:4px;}
+  .shot span{font-size:12.5px;color:var(--sub);}
+
+  ul.pt{margin:0 0 22px 4px;padding-left:20px;}
+  ul.pt li{font-size:16px;margin-bottom:12px;line-height:1.8;}
+
+  .scroll{overflow-x:auto;margin:6px 0 8px;border-radius:12px;border:1px solid var(--line);}
+  table{width:100%;border-collapse:collapse;background:var(--card);font-size:14px;min-width:360px;}
+  th,td{border-bottom:1px solid var(--line);border-right:1px solid var(--line);padding:11px 12px;text-align:left;vertical-align:top;line-height:1.6;}
+  tr td:last-child,tr th:last-child{border-right:none;}
+  tbody tr:last-child td{border-bottom:none;}
+  thead th{background:var(--brand);color:#fff;font-size:12.5px;white-space:nowrap;font-weight:800;}
+  tbody th{background:var(--brand-soft);font-size:12.5px;font-weight:800;}
+  .col-note{font-size:12px;color:var(--sub);margin:8px 2px 26px;}
+  .good{color:var(--good);font-weight:800;} .bad{color:var(--bad);font-weight:800;}
+
+  .balloon{position:relative;background:#fff;border:1.5px solid var(--brand);border-radius:14px;padding:15px 16px 15px 52px;margin:24px 0;font-size:14.5px;line-height:1.75;}
+  .balloon::before{content:"裸";position:absolute;left:14px;top:15px;width:28px;height:28px;border-radius:50%;background:var(--brand);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;}
+  .balloon b{color:var(--brand);}
+
+  .note{font-size:13px;color:var(--sub);margin:12px 0 22px;line-height:1.7;}
+  .warn{background:var(--accent-soft);border:1px solid #f4cdb2;border-left:5px solid var(--accent);border-radius:0 10px 10px 0;padding:15px 16px;font-size:14.5px;margin:12px 0 24px;line-height:1.8;}
+  .warn b{color:var(--accent-d);}
+  .disc{background:#fff;border:1px solid var(--line);border-left:5px solid #94a3b8;border-radius:0 10px 10px 0;padding:15px 16px;font-size:14px;margin:22px 0;line-height:1.8;}
+
+  .verdict{display:flex;flex-direction:column;gap:12px;margin:8px 0 24px;}
+  .vc{border-radius:14px;padding:16px 18px;border:1px solid var(--line);background:var(--card);}
+  .vc .h{display:flex;align-items:center;gap:9px;font-weight:800;font-size:15px;margin-bottom:8px;}
+  .vc .h .chip{font-size:11px;font-weight:800;color:#fff;border-radius:999px;padding:3px 10px;}
+  .vc.free .chip{background:#64748b;} .vc.paid .chip{background:var(--brand);}
+  .vc p{font-size:14.5px;margin:0;}
+
+  .cta{background:linear-gradient(150deg,#1a5c32,#15803d);border-radius:16px;padding:24px 22px;margin:24px 0 8px;text-align:center;color:#fff;box-shadow:0 6px 18px rgba(21,128,61,.22);}
+  .cta .k{font-size:16px;font-weight:800;margin-bottom:6px;line-height:1.6;}
+  .cta .s{font-size:13.5px;color:rgba(255,255,255,.9);margin-bottom:16px;}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:52px;background:var(--accent);color:#fff;font-weight:800;padding:12px 30px;border-radius:999px;text-decoration:none;font-size:16px;box-shadow:0 4px 0 var(--accent-d);transition:transform .05s;}
+  .btn:active{transform:translateY(2px);box-shadow:0 2px 0 var(--accent-d);}
+  .btn:focus-visible{outline:3px solid #fff;outline-offset:3px;}
+  .cta .fine{font-size:11.5px;color:rgba(255,255,255,.82);margin-top:12px;}
+  .cta-soft{background:var(--accent-soft);border:1px solid #f4cdb2;border-radius:14px;padding:16px 18px;margin:20px 0;display:flex;align-items:center;gap:14px;flex-wrap:wrap;}
+  .cta-soft p{margin:0;font-size:14px;font-weight:700;flex:1 1 200px;color:var(--accent-d);}
+  .btn-o{display:inline-flex;align-items:center;gap:7px;min-height:46px;background:var(--accent);color:#fff;font-weight:800;padding:10px 22px;border-radius:999px;text-decoration:none;font-size:14.5px;white-space:nowrap;}
+  .btn-o:focus-visible{outline:3px solid var(--accent);outline-offset:2px;}
+
+  .faq dt{font-weight:800;margin-top:20px;font-size:15.5px;padding-left:26px;position:relative;}
+  .faq dt::before{content:"Q";position:absolute;left:0;top:0;color:var(--brand);font-weight:900;}
+  .faq dd{margin:8px 0 0 26px;font-size:14.5px;color:#374151;line-height:1.8;}
+  .back{font-size:14px;margin-top:24px;}
+  .back a{color:var(--brand);font-weight:700;}
+
+  footer{border-top:1px solid var(--line);margin-top:36px;padding:24px 0 46px;font-size:12px;color:var(--sub);}
+  footer p{margin-bottom:8px;line-height:1.7;}
+  footer a{color:var(--brand);}
+  .hero-photo{width:100%;background:#f4fbf6;border-bottom:1px solid var(--line);}
+  .hero-photo img{width:100%;height:clamp(190px,40vw,300px);object-fit:cover;object-position:center;display:block;}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <p class="pr">※本ページにはプロモーション（アフィリエイト広告）が含まれます</p>
+    <h1>文章校正、無料でどこまで？<br>ChatGPT/Claude と文賢の違いを整理した</h1>
+    <p class="lead">「無料のAIで校正できるのに、わざわざ月1,650円の文賢って要る？」——毎日無料AIで文章を直している側から、要る人・要らない人を整理しました（文賢は未使用・公開情報ベース）。</p>
+    <div class="hero-flow">
+      <span class="pill">📝 書いた文章</span><span class="ar">→</span>
+      <span class="pill">✍️ 校正・直し</span><span class="ar">→</span>
+      <span class="pill">✅ 人に出せる文</span>
+    </div>
+    <div class="byline"><span class="ava">裸</span><span>文：裸足＠AIぶん回し課長（AIを実際にぶん回している中の人）</span></div>
+  </div>
+</header>
+
+<div class="hero-photo"><img src="assets/img/hero-bunken.png" alt="赤ペンで文章を校正している手元"></div>
+
+<div class="wrap">
+
+  <div class="disc">
+    <strong>先にお断りします。</strong>この記事の一次体験は「<strong>無料AI（ChatGPT/Claude）で毎日校正している側</strong>」の話です。<strong>文賢そのものは、筆者はまだ使っていません。</strong>文賢側の記述は公式サイトの公開情報に基づく整理で、使用感の評価ではありません。使ったふりはしません。
+  </div>
+
+  <div class="takeaway">
+    <b>📌 この記事でわかること</b>
+    <ul>
+      <li>誤字チェックは無料AIでどこまでいけるか（結論は先に）</li>
+      <li>無料AIに空いている"2つの穴"＝機密とチーム表記</li>
+      <li>無料AIで毎日校正している側の、正直な一次体験</li>
+      <li>あなたはどっち？ 無料AIのままでいい人・文賢が要る人</li>
+    </ul>
+  </div>
+
+  <div class="concl">
+    <p><b>先に結論。</b>ただの誤字チェックなら、<span class="mark">無料AIでかなりのところまでいけます</span>。ここは隠しません。</p>
+    <p>差が出たのは2点だけでした。<strong>「機密を含む文書を無料AIに貼れない」</strong>ことと、<strong>「チームで表記ルールを揃える」</strong>こと。一人で書いていて機密も薄いなら、無料で足ります。</p>
+  </div>
+
+  <nav class="toc">
+    <b>この記事の内容</b>
+    <ol>
+      <li><a href="#hyo">まず結論——この表だけ見れば足りる</a></li>
+      <li><a href="#ana1">穴その1——機密文書を"無料AIに貼れない"問題</a></li>
+      <li><a href="#ana2">穴その2——"チームで表記を揃える"は無料AIが苦手</a></li>
+      <li><a href="#taiken">正直な一次体験（無料AIで毎日校正している側から）</a></li>
+      <li><a href="#kabe">文賢の"本当のコストと壁"（隠さず）</a></li>
+      <li><a href="#shiwake">で、どっちを使えばいい？（現時点の整理）</a></li>
+      <li><a href="#faq">よくある質問</a></li>
+    </ol>
+  </nav>
+
+  <section>
+    <p>誤字脱字、変な敬語、まわりくどい言い回し。人に出す文章の"直し"は、地味だけど気を使う。</p>
+    <p>で、俺は毎日それをChatGPTとClaudeにやらせている。正直、これがよくできる。だから最初はこう思った。<strong>「校正専用ツールの文賢（月1,650円）なんて、無料AIがあれば要らないのでは？」</strong></p>
+    <p>結論から言う。<strong>ソロでたまに直すだけなら、無料AIで十分。文賢は要らない。</strong>ただし、"チーム"と"機密"と"日本語の正確さが信用に直結する仕事"には、無料AIじゃ埋まらない穴があった。</p>
+  </section>
+
+  <section id="hyo">
+    <h2><span class="ic">⚖️</span>まず結論——この表だけ見れば足りる</h2>
+    <div class="scroll">
+    <table>
+      <thead><tr><th></th><th>無料AI<br>（ChatGPT/Claude）</th><th>文賢<br>（有料・月1,650円〜）</th></tr></thead>
+      <tbody>
+        <tr><th>料金</th><td>¥0</td><td>月1,650円〜（14日無料トライアル）</td></tr>
+        <tr><th>誤字・敬語・表現の直し</th><td class="good">得意</td><td class="good">得意（日本語校閲特化）</td></tr>
+        <tr><th>文章を"生成"する</th><td class="good">できる</td><td class="bad">しない（磨く道具）</td></tr>
+        <tr><th>機密文書</th><td class="bad">貼ると外部送信</td><td class="good">クラウド保存しないと明記</td></tr>
+        <tr><th>チームで表記統一</th><td class="bad">毎回プロンプト手動</td><td class="good">共有の表記ルール辞書</td></tr>
+        <tr><th>使い方</th><td>貼る＋指示が要る</td><td class="good">貼るだけ・リアルタイム</td></tr>
+        <tr><th>向く人</th><td>ソロ・たまに</td><td>チーム・広報/士業・大量校正</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p class="col-note">→ 分かれ目は「校正の上手さ」ではなく、<strong>機密を貼れるか</strong>と<strong>チームで基準を揃えられるか</strong>。以下、その2点を掘ります。</p>
+  </section>
+
+  <section id="ana1">
+    <h2><span class="ic">🔒</span>穴その1——機密文書を"無料AIに貼れない"問題</h2>
+    <p>これが一番大きい。取引先名・個人情報・未公開の情報が入った文章を、無料のAIチャットにそのまま貼るのは、正直こわい。消費者向けの無料プランは、<span class="mark">入力が学習等に使われる場合があり</span>、設定や規約次第だからです。</p>
+
+    <div class="fig">
+      <div class="duo">
+        <div class="dc risk">
+          <div class="h"><span class="chip">無料AIチャット</span>社外秘は貼りにくい</div>
+          <span class="doc">📄 社外秘の文書</span>
+          <p class="flow">→ 無料チャットに貼る → ⚠️ 外部AIに送信（学習に使われる場合あり・規約次第）</p>
+        </div>
+        <div class="dc safe">
+          <div class="h"><span class="chip">文賢</span>送信文はクラウド保存しない</div>
+          <span class="doc">📄 社外秘の文書</span>
+          <p class="flow">→ 文賢で校正 → 🔒 公式に「送信文はクラウド上に保存しない」と明記</p>
+        </div>
+      </div>
+      <p class="fig-cap">図：社外秘を日常的に直す仕事なら、この一点だけで有料の価値が出る。</p>
+    </div>
+
+    <p class="note">※もちろん、無料AI側も業務用（法人/API/設定変更）ならデータの扱いは変わる。ここは「消費者向け無料チャットにそのまま貼る」前提の話。なお文賢もAIチェックのため文章を処理するので、固有名詞や機密は「マスキング機能」で伏せてから通すのが基本です。いずれにせよ機密は社内規程が最優先。</p>
+  </section>
+
+  <section id="ana2">
+    <h2><span class="ic">📏</span>穴その2——"チームで表記を揃える"は無料AIが苦手</h2>
+    <p>「サーバー or サーバ」「お客様 or お客さま」——組織で文章を出すと、この表記ゆれが地味に効く。無料AIに毎回「うちのルールはこう」とプロンプトで教えるのは、人が変わると崩れる。</p>
+
+    <div class="fig">
+      <div class="ba">
+        <div class="ba-card ba-before">
+          <b>✕ 無料AI：人が変わると基準がブレる</b>
+          <span class="tok x">サーバ</span><span class="tok x">お客さま</span><span class="tok x">問合せ</span>／<span class="tok x">サーバー</span><span class="tok x">お客様</span><span class="tok x">お問い合わせ</span>——同じ社内で表記がバラバラに。
+        </div>
+        <div class="ba-card ba-after">
+          <b>○ 文賢：共有辞書で誰が直しても同じ</b>
+          <span class="tok o">サーバー</span><span class="tok o">お客様</span><span class="tok o">お問い合わせ</span>——チームの表記ルール辞書で統一。
+        </div>
+      </div>
+      <p class="fig-cap">図：ライターが複数いる編集現場や広報では、ここが効く。</p>
+    </div>
+    <p>文賢には<strong>チームで共有できる表記ルール辞書</strong>があり、誰が直しても同じ基準になる。さらに日本語特化で、<strong>差別語・不快語・敬語の誤り・読みやすさ</strong>を定型でチェックする。</p>
+  </section>
+
+  <section id="taiken">
+    <h2><span class="ic">🧪</span>正直な一次体験（無料AIで毎日校正している側から）</h2>
+    <p>俺自身は、日々の校正はほぼ無料AIで足りている。誤字も敬語も言い換えも、貼って「直して」と言えば返ってくる。精度も文句ない。</p>
+
+    <div class="fig">
+      <div class="ba">
+        <div class="ba-card ba-before">
+          <b>入力：直す前（例）</b>
+          「お世話になっております。先日の件、ご確認のほど宜しくお願い致します。なるはやで対応頂けますと幸いです。」
+        </div>
+        <div class="ba-card ba-after">
+          <b>無料AIの校正：直した後（例）</b>
+          「お世話になっております。先日の件、ご確認をお願いいたします。お早めにご対応いただけますと幸いです。」<br><span style="font-size:12px;color:var(--sub);">＝「宜しく」→「よろしく」、「なるはや」→「お早めに」、二重敬語の整理。</span>
+        </div>
+      </div>
+      <p class="fig-cap">図：貼って「校正して」と言うと、この程度は無料AIでも十分返ってくる（文章は説明用の例）。</p>
+    </div>
+
+    <p>ただ、詰まるのはいつも同じところでした。</p>
+    <ul class="pt">
+      <li>機密が入った文章は貼れない</li>
+      <li>「うちの表記ルール」を毎回言い直すのが面倒</li>
+      <li>人に任せると基準がブレる</li>
+    </ul>
+    <p>文賢が埋めるのは、まさにこの3つ。逆に言えば、<span class="mark">この3つに困っていないなら無料AIのままでいい</span>と思っています。</p>
+
+    <div class="balloon">
+      <b>裸足：</b>毎日無料AIで校正してる側から言うと、引っかかるのは精度じゃないんです。<span class="mark">「これ貼っていい文書だっけ？」で毎回止まる</span>——そこでした。
+    </div>
+  </section>
+
+  <section id="kabe">
+    <h2><span class="ic">🧱</span>文賢の"本当のコストと壁"（隠さず）</h2>
+    <h3>正直に言う弱点</h3>
+    <ul class="pt">
+      <li><strong>有料（月1,650円〜・年更新）</strong>。無料AIとの一番の差はここ。</li>
+      <li><strong>文章を"生成"はしない</strong>。ゼロから書かせたいなら文賢ではなくAI。文賢は"書いた文章を磨く"道具です。</li>
+    </ul>
+    <div class="warn">
+      ⚠️<b>14日間の無料トライアル中に解約しなければ、そのまま有料の本契約に切り替わります。</b>試すだけのつもりなら、<strong>期間中の解約を忘れずに</strong>（期間中の解約なら料金は一切かからない＝公式明記）。カレンダーに「13日目に判断」と入れておくのが安全です。
+    </div>
+  </section>
+
+  <section id="shiwake">
+    <h2><span class="ic">🎯</span>で、どっちを使えばいい？（現時点の整理）</h2>
+
+    <div class="verdict">
+      <div class="vc free">
+        <div class="h"><span class="chip">無料AIで十分</span>ソロ・たまに・機密なし</div>
+        <p>一人で、たまに直すだけ、機密も薄い——なら<strong>無料AI（ChatGPT/Claude）で十分</strong>。文賢は要りません。</p>
+      </div>
+      <div class="vc paid">
+        <div class="h"><span class="chip">文賢が効く</span>チーム・機密・日本語が信用に直結</div>
+        <p>機密文書を日常的に直す／チームで表記を統一したい／広報・士業・カスタマーサポートで日本語の正確さが信用に直結するなら、文賢の出番。14日の無料トライアルで、自分の実際の文章を通して判断すればいい。</p>
+      </div>
+    </div>
+
+    <div class="cta">
+      <p class="k">チームや機密文書の校正で止まっているなら。</p>
+      <p class="s">まず14日、自分の実際の文章1本で試せます。</p>
+      <a class="btn" href="https://px.a8.net/svt/ejp?a8mat=4B82L4+61B8KY+3Q2O+HVFKY" rel="sponsored nofollow">文賢を14日間無料で試す →</a><img border="0" width="1" height="1" src="https://www16.a8.net/0.gif?a8mat=4B82L4+61B8KY+3Q2O+HVFKY" alt="">
+      <p class="fine">※14日間の無料トライアル中に解約しなければ有料の本契約に切り替わります。試すだけなら期間中の解約を。</p>
+    </div>
+  </section>
+
+  <section id="faq">
+    <h2><span class="ic">❓</span>よくある質問</h2>
+    <dl class="faq">
+      <dt>無料AIがあるのに、お金を払う意味ある？</dt>
+      <dd>A. ソロのカジュアル校正ならありません。意味が出るのは「機密で無料AIに貼れない」「チームで表記を揃えたい」「大量に校正する」場合です。</dd>
+      <dt>文賢はゼロから文章を書いてくれる？</dt>
+      <dd>A. いいえ。文賢は"書いた文章を磨く"道具です。ゼロから生成したいならAI（ChatGPT/Claude）の方が向きます。使い分けが正解。</dd>
+      <dt>無料で使い続けられる？</dt>
+      <dd>A. 文賢は有料ツールで、あるのは14日間の無料トライアルです（無料プランは無し）。トライアル中に解約しなければ有料の本契約へ切り替わるので、試すだけなら期間中の解約を忘れずに。</dd>
+      <dt>機密の文章を入れて大丈夫？</dt>
+      <dd>A. 文賢は「送信文をクラウド保存しない」と公式に明記しています。ただし社内規程が最優先——本当に出せない機密は、そもそもどのツールにも入れないのが原則です。</dd>
+    </dl>
+    <p class="back">← <a href="ai-start.html">生成AI、何から触る？（仕事タイプ別の入口）に戻る</a></p>
+  </section>
+
+</div>
+
+<footer>
+  <div class="wrap">
+    <p>文：裸足＠AIぶん回し課長（AIを実際にぶん回している中の人の記録）</p>
+    <p>出典：料金・機能は2026年7月に文賢（株式会社ウェブライダー）公式で確認した税込表記。最新の条件は<a href="https://rider-store.jp/bun-ken/">公式</a>でご確認ください。文賢の機能説明は公式の記載に基づきます。</p>
+    <p>運営：有限会社ビイスタッフ　※本ページにはアフィリエイト広告を含みます。</p>
+  </div>
+</footer>
+</body>
+</html>
